@@ -1,21 +1,20 @@
-import config from '..Config'
-import {Client, Account, Id} from 'appwrite';
+import config from '../Config'
+import {Client, Account,ID} from 'appwrite'
 
 class Auth{
 
 	client= new Client();
 	account
 	constructor(){
-		this.
-		client.setEndpoint(config.appWriteUrl).
-		setProject(config.appWriteProjectId);
+		console.log(config)
+		this.client.setEndpoint(config.appWriteUrl).setProject(config.appWriteProjectId);
 
-		account= new Account();
+		this.account= new Account();
 	}
 
 	async SingIn({email, password}){
 		try{
-			await this.account.create(Id.unique(),email,password);
+			await this.account.create(ID.unique(),email,password);
 			//after creating account directly creating login session for user..
 
 
@@ -47,6 +46,6 @@ class Auth{
 
 }
 
-let authObj=new Auth();
+const authObj=new Auth();
 
 export default authObj;
