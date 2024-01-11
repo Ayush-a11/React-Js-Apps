@@ -11,23 +11,38 @@ class Auth{
 
 		this.account= new Account();
 	}
-
-	async SingIn({email, password}){
-		try{
-			await this.account.create(ID.unique(),email,password);
-			//after creating account directly creating login session for user..
-
-
+    
+	async GetCurrentUser(){
+        try{
+			return await this.account.get()
 		}
 		catch(error){
-			console.log("Error creating account :: SingIn Function", error);
+			console.log("Error Fetching Current User Data :: GetCurrentUser function", error);
+		}
+		return null;
+
+	}
+
+	async SingUp({name,email, password}){
+		try{
+			const userId=ID.unique()
+			await this.account.create(userId,email,password,name)
+			//after creating account directly creating login session for user..
+
+			await this.LogIn({email, password});
+			return true;
+		}
+		catch(error){
+			console.log("Error creating account :: SingUp Function", error);
 		}
 		return null;
 	}
 
-	async LoginIn({email, password}){
+	async LogIn({email, password}){
 		try{
-			return await this.account.createEmailSession(email, password);
+			 await this.account.createEmailSession(email, password);
+			 return true;
+
 		}
 		catch(error){
 			console.log("Error creating account :: LoginIn Function", error);
@@ -37,11 +52,14 @@ class Auth{
 
 	async LogOut(){
 		try{
-			return this.account.deleteSessions();
+			 this.account.deleteSessions();
+			 return true;
+
 		}
 		catch(error){
 			console.log("Error logging out :: LogOut Function", error);
 		}
+		return null;
 	}
 
 }

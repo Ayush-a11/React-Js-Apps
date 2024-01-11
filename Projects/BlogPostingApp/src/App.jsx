@@ -6,7 +6,7 @@ import {Header,Footer} from './components'
 import { Outlet } from 'react-router-dom'
 
 function App() {
-  const [status,setStatus] =useState()
+  const [status,setStatus] =useState(false)
   const selector=useSelector((state)=>console.log(state));
 
   useEffect(() => {

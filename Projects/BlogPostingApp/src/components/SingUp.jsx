@@ -7,17 +7,20 @@ import {Link,useNavigate} from 'react-router-dom'
 import Input from './Input'
 import { useDispatch } from 'react-redux'
 
-function Login() {
-  
-  const dispatch =useDispatch()
-  const navigate = useNavigate();
-  const {register,handleSubmit}= useForm();
-  const [error,setError] = useState(null);
 
-  const loginUser =async(data)=>{
+
+function SingUp() {
+
+const dispatch =useDispatch()
+const navigate = useNavigate();
+const {register,handleSubmit}= useForm();
+const [error,setError] = useState(null);
+
+const SingUpUser =async(data)=>{
    setError("");
    try{
-      const session = await authObj.LogIn(data);
+      console.log(data)
+      const session = await authObj.SingUp(data);
       if(session){
         const data= await session.GetCurrentUser();
         if(data){
@@ -29,16 +32,24 @@ function Login() {
     setError(error);
    }
 
-  }
+}
 
-  return (
-	<div className=" my-10 py-10 w-full bg-slate-500  bg-opacity-5 h-5/6 shadow-2xl"> 
+return (
+	<div className=" my-10 py-10 w-full bg-slate-500  bg-opacity-5 h-5/6 shadow-2xl">
       {error && <h1 className="text-red-800 font-bold">{error}</h1>}
 
-      <h2 className='text-purple-500 font-bold text-3xl font-mono'>Login To Your Account</h2>
+      <h2 className='text-purple-500 font-bold text-3xl font-mono'>Create Your Account</h2>
 
-      
-      <form onSubmit={handleSubmit(loginUser)}>
+     
+
+      <form onSubmit={handleSubmit(SingUpUser)}>
+
+	  <Input placeholder="Enter your Name"
+               type="text"
+               label="Name"
+               {...register("name",{required:true,})}
+               />
+
         <Input placeholder="Enter your email"
                type="email"
                label="Email"
@@ -53,14 +64,14 @@ function Login() {
         <Input placeholder="Enter your password"
                type="password"
                label="Password"
-               {...register("password",{required:true,})}/>
-
-      <Link to='/SignUp'>
-      <h2 className='text-blue-800 font-bold font-mono'>Don't have account ?</h2>
+               {...register("password",{required:true,})}
+          />
+		 <Link to='/Login'>
+      <h2 className='text-blue-800 font-bold font-mono'>Already have an account ?</h2>
       </Link>
 
         <button className=' mt-5 bg-purple-700 text-white font-sans font-bold hover:bg-white hover:text-purple-800 border-2
-						   hover:border-2 hover:border-black p-3 rounded-2xl' type='submit'>Log-In</button>
+						   hover:border-2 hover:border-black p-3 rounded-2xl' type='submit'>Create Account</button>
       </form>
 
 
@@ -69,4 +80,4 @@ function Login() {
   )
 }
 
-export default Login
+export default SingUp
