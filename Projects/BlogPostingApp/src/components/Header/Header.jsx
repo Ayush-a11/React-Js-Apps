@@ -18,8 +18,8 @@ function Header() {
       Active: true
     },
     {
-      name:'All Post',
-      path:'/all-post',
+      name:'Create Post',
+      path:'/Post',
       Active: true
     },
     {
@@ -49,7 +49,7 @@ function Header() {
 
       <ul>
         <li>
-        {!authstate?<LogOutButton/> :null}
+        {authstate?<LogOutButton/> :null}
         </li>
       </ul>
     </nav>

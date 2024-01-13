@@ -9,7 +9,7 @@ class Auth{
 		console.log(config)
 		this.client.setEndpoint(config.appWriteUrl).setProject(config.appWriteProjectId);
 
-		this.account= new Account();
+		this.account= new Account(this.client);
 	}
     
 	async GetCurrentUser(){
@@ -25,11 +25,13 @@ class Auth{
 
 	async SingUp({name,email, password}){
 		try{
+			console.log(this.account)
 			const userId=ID.unique()
 			await this.account.create(userId,email,password,name)
 			//after creating account directly creating login session for user..
 
 			await this.LogIn({email, password});
+
 			return true;
 		}
 		catch(error){
@@ -40,6 +42,7 @@ class Auth{
 
 	async LogIn({email, password}){
 		try{
+			
 			 await this.account.createEmailSession(email, password);
 			 return true;
 

@@ -7,8 +7,9 @@ import { Outlet } from 'react-router-dom'
 
 function App() {
   const [status,setStatus] =useState(false)
-  const selector=useSelector((state)=>console.log(state));
+  const selector=useSelector((state)=>state.auth);
 
+  console.log('selector in login page ',selector);
   useEffect(() => {
     
       if(selector && selector.state.loggedIn) {

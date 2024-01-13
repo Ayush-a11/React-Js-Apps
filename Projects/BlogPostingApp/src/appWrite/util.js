@@ -1,5 +1,5 @@
-import config from './config'
-import {Client,Storage,Database} from "appwrite"
+import config from '../Config'
+import {Client,Storage,Databases,ID} from "appwrite"
 
 
 class Util{
@@ -11,24 +11,24 @@ class Util{
 		this.
 		client.setEndpoint(config.appWriteUrl).
 		setProject(config.appWriteProjectId);
-		this.database=new Database();
-		this.storage= new Storage();
+		console.log(this.client)
+		this.database=new Databases(this.client);
+		this.storage= new Storage(this.client);
 	}
 
-	async CreateBlogPost(identifier,{title,content,image,status,userId}){
+	async CreateBlogPost({title,identifier,content,image,status,userId}){
 		try{
 			return await 
 			this.database.createDocument(
 					config.appWriteDatabaseId,
 					config.appWriteCollectionId,
-					Config.appWriteDocumentId,
+					identifier,
 					{
-						title,
-						identifier,
-						content,
-						image,
-						status,
-						userId
+						Title:title,
+						Content:content,
+						Image:image,
+						Status:status,
+						UserId:userId
 					}
 			)
 		}
@@ -110,7 +110,8 @@ class Util{
 
 	async UploadFile(fileBlob){
 		try{
-			return await this.storage.createFile(config.appWriteBucketId,Id.unique(),fileBlob);
+			const file= await this.storage.createFile(config.appWriteBucketId,ID.unique(),fileBlob);
+			return file
 		}
 		catch(error){
 			console.log('Error Uploading File :: GetFile',error); 

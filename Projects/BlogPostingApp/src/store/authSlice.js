@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import authObj from "../appWrite/auth";
 
 const initialState={
-		userId:"12",
+		userData:null,
 		loggedIn: false
 }
 
@@ -11,11 +11,13 @@ const authSlice = createSlice({
 		initialState,
 		reducers:{
 			logIn(state,action){
-				authObj.LoginIn(action.email,action.password).
-				then((data)=>
-					console.log(data)
-				)
-				.finally(() =>state.loggedIn = true)
+				//  authObj.LoginIn(action.email,action.password).
+				// then((data)=>
+				// 	console.log(data)
+				// )
+				// .finally(() =>state.loggedIn = true)
+				state.userData=action.payload;
+				state.loggedIn=true;
 			},
 			logOut(state){
 				state.loggedIn=false;

@@ -21,8 +21,10 @@ const SingUpUser =async(data)=>{
    try{
       console.log(data)
       const session = await authObj.SingUp(data);
+      console.log('session',session)
       if(session){
-        const data= await session.GetCurrentUser();
+        const data= await authObj.GetCurrentUser();
+        console.log(data);
         if(data){
           dispatch(StoreLogin(data))
           navigate('/')
@@ -36,7 +38,7 @@ const SingUpUser =async(data)=>{
 
 return (
 	<div className=" my-10 py-10 w-full bg-slate-500  bg-opacity-5 h-5/6 shadow-2xl">
-      {error && <h1 className="text-red-800 font-bold">{error}</h1>}
+      {/* {error && <h1 className="text-red-800 font-bold">{error}</h1>} */}
 
       <h2 className='text-purple-500 font-bold text-3xl font-mono'>Create Your Account</h2>
 
