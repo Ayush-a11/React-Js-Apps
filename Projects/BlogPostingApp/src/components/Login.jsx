@@ -21,7 +21,7 @@ function Login() {
       if(session){
         console.log('hi')
         const data= await authObj.GetCurrentUser();
-        console.log(data);
+        
         if(data){
           dispatch(StoreLogin(data))
           navigate('/')
@@ -32,10 +32,10 @@ function Login() {
    }
 
   }
-
+  console.log('error login',error)
   return (
 	<div className=" my-10 py-10 w-full bg-slate-500  bg-opacity-5 h-5/6 shadow-2xl"> 
-      {/* {error && <h1 className="text-red-800 font-bold">{error}</h1>} */}
+      {error && <h1 className="text-red-800 font-bold">{error}</h1>}
 
       <h2 className='text-purple-500 font-bold text-3xl font-mono'>Login To Your Account</h2>
 

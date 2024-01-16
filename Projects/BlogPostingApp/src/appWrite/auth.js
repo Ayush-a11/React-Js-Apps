@@ -19,8 +19,7 @@ class Auth{
 		catch(error){
 			console.log("Error Fetching Current User Data :: GetCurrentUser function", error);
 		}
-		return null;
-
+		
 	}
 
 	async SingUp({name,email, password}){

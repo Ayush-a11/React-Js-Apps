@@ -1,5 +1,5 @@
 import config from '../Config'
-import {Client,Storage,Databases,ID} from "appwrite"
+import {Client,Storage,Databases,ID,Query} from "appwrite"
 
 
 class Util{
@@ -59,9 +59,9 @@ class Util{
 				config.appWriteCollectionId,
 				identifier,
 				{
-					title,
-					content,
-					image
+					Title:title,
+					Content:content,
+					Image:image
 				});
 		}
 		catch(error){
@@ -82,14 +82,29 @@ class Util{
 		}
 		return null;
 	}
+	async GetAllPost(){
+		try{
+			return await this.database.listDocuments(
+				config.appWriteDatabaseId,
+				config.appWriteCollectionId
+				,
+				[Query.equal("Status","active")]
+			)
+		}
+		catch(error){
+			console.error('Error Ocurred while listing files :: GetAllFiles function',error)
+		}
+		return null;
+	}
 
 	//Storage call...
 
 	async GetAllFiles(){
 		try{
 			return await this.storage.listFiles(
-				config.appWriteBucketId,
-				[Query.equal("status","active")]
+				config.appWriteBucketId
+				// ,
+				// [Query.equal("status","active")]
 			)
 		}
 		catch(error){
@@ -99,6 +114,7 @@ class Util{
 	}
 
 	getFilePreview(fileId){
+		console.log('triggerd',fileId)
 		try{
 			return  this.storage.getFilePreview(config.appWriteBucketId,fileId);
 		}

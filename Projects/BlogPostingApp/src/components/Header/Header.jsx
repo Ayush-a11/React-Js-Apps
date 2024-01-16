@@ -15,22 +15,22 @@ function Header() {
     {
       name:'Home',
       path:'',
-      Active: true
+      Active: authstate
     },
     {
       name:'Create Post',
-      path:'/Post',
-      Active: true
+      path:`/Post/addPost`,
+      Active: authstate
     },
     {
       name:'Login',
       path:'/Login',
-      Active: !authstate
+      Active: false
     },
     {
       name:'SignUp',
       path:'/SignUp',
-      Active: !authstate
+      Active: false
     },
   ]
 
@@ -38,7 +38,9 @@ function Header() {
   return (
 	<div className="w-full h-20  border-b-2  mb-8 border-purple-800 shadow-xl">
     <nav className='flex justify-between item-center p-4'>
+    <Link   to='/'>
       <div className=" "><img className="w-32 h-20 pb-5 "src= "https://cdn.logojoy.com/wp-content/uploads/2018/05/30164225/572.png"/></div>
+      </Link>
       <ul className="flex item-center space-x-5">
         {navItems.map((item)=>(
           <Link key={item.name}  to={item.path}>
@@ -49,7 +51,19 @@ function Header() {
 
       <ul>
         <li>
-        {authstate?<LogOutButton/> :null}
+
+        {authstate?<LogOutButton/> :
+          <>
+            <Link to='/Login'>
+            <button  className=' border-2 border-purple-600  text-purple-600 font-mono font-bold hover:bg-purple-600 hover:text-black 
+						   hover:border-2 hover:border-black p-4 rounded-2xl mx-2'>&nbsp;LogIn</button>
+            </Link>
+            <Link to='/SignUp'>
+            <button  className=' border-2 border-purple-600  text-purple-600 font-mono font-bold hover:bg-purple-600 hover:text-black 
+						   hover:border-2 hover:border-black p-4 rounded-2xl'>&nbsp;SingUp</button>
+            </Link>
+          </>
+        }
         </li>
       </ul>
     </nav>

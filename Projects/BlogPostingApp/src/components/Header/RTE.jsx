@@ -2,7 +2,7 @@ import React from 'react'
 import {Editor} from '@tinymce/tinymce-react'
 import {Controller} from 'react-hook-form'
 
-function RTE({name, control,label,defaultValue=""}) {
+function RTE({name, control,label,defaultValue="",readOnly=false}) {
   return (
 	<div className='w-full'>
 		{label && <label className="text-lg font-bold font-mono h-10 w-12 inline-block text-left mr-10">{label}</label>}
@@ -12,7 +12,7 @@ function RTE({name, control,label,defaultValue=""}) {
 			render={({field: {onChange}})=>(
 				<Editor
 					initialValue={defaultValue}
-					inti={{
+					init={{
 						initialValue:{defaultValue},
 						height:500,
 						menubar:true,
@@ -25,7 +25,8 @@ function RTE({name, control,label,defaultValue=""}) {
 						  'bold italic backcolor | alignleft aligncenter ' +
 						  'alignright alignjustify | bullist numlist outdent indent | ' +
 						  'removeformat | help',
-						  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+						  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+						  
 					}}
 					onEditorChange={onChange}
 				/>

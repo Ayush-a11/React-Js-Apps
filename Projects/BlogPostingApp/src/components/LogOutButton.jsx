@@ -4,11 +4,13 @@ import { useDispatch } from 'react-redux'
 import authObj from '../appWrite/auth'
 import { logOut } from '../store/authSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useNavigate } from 'react-router'
 function LogOutButton() {
 	const dispatch = useDispatch();
- const logoutHandler =() => {
+	const navigate =useNavigate()
+	 const logoutHandler =() => {
 	 authObj.LogOut().then(() => dispatch(logOut()))
-	
+	navigate('/Login')
  }
 
   return (
